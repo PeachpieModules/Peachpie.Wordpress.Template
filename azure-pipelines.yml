@@ -10,5 +10,5 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- powershell: ./build.sh $(buildConfiguration)
+- powershell: ./build.ps1 $(buildConfiguration)
   displayName: 'Build $(buildConfiguration)'
