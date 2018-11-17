@@ -10,18 +10,18 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- powershell: ./build.ps1 $(buildConfiguration)
-  displayName: 'Build: $(buildConfiguration)'
+- powershell: ./build.ps1 $(BuildConfiguration)
+  displayName: 'Build: $(BuildConfiguration)'
 # Copy to publish folder
 - task: CopyFiles@2
-  displayName: 'Copy to Artifacts Directory: $(buildConfigurtion) | $(Platform)'
+  displayName: 'Copy to Artifacts Directory: $(BuildConfiguration) | $(Platform)'
   inputs:
-    contents: '$(Build.SourcesDirectory)\..\..\Build\$(buildConfiguration)\$(Platform)\**'
+    contents: '$(Build.SourcesDirectory)/../../Build/$(BuildConfiguration)/**'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 # Publish Build Artifacts
 # Publish build artifacts to Azure Artifacts/TFS or a file share
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Build Artifacts: $(buildConfigurtion)'
+  displayName: 'Publish Build Artifacts'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'drop'
