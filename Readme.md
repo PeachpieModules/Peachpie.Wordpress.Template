@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/Valks-Peachpie/peachpie-wordpress-template/_apis/build/status/Valks.peachpie-wordpress-template)](https://dev.azure.com/Valks-Peachpie/peachpie-wordpress-template/_build/latest?definitionId=1)
+[![Build Status](https://dev.azure.com/Valks-Peachpie/peachpie-wordpress-template/_apis/build/status/Valks.peachpie-wordpress-template)](https://dev.azure.com/Valks-Peachpie/peachpie-wordpress-template/_build/latest?definitionId=1) [![Deployment Status](https://vsrm.dev.azure.com/Valks-Peachpie/_apis/public/Release/badge/02942101-7d18-4f0b-bee1-a65d03c32d6c/4/4)](https://peachpie-test-wordpress-template.azurewebsites.net/)
 
 This is a sample template for a peachpie site running Wordpress
 
