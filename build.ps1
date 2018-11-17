@@ -23,6 +23,12 @@ ForEach-Object {
     Invoke-Expression "dotnet build -c $build --force";
 }
 
+Get-ChildItem "$basePath/src/MustUsePlugins" -Directory |
+ForEach-Object {
+    Set-Location $_.FullName;
+    Invoke-Expression "dotnet build -c $build --force";
+}
+
 Get-ChildItem "$basePath/src/Themes" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
