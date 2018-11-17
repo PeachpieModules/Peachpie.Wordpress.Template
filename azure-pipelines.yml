@@ -10,42 +10,13 @@ variables:
   BuildConfiguration: 'Release'
 
 steps:
+- powershell: ./build.ps1 $(BuildConfiguration)
+  displayName: 'Build Wordpress Modules (Patches, Must Use Plugins, Plugins, Themes): $(BuildConfiguration)'
+
 - task: DotNetCoreCLI@2
-  displayName: 'Build Wordpress Patches'
+  displayName: 'Build Wordpress Server'
   inputs:
-    command: restore
-    projects: '**/Patches/**/*.csproj'
-    feedsToUse: config
-    nugetConfigPath: NuGet.config    # Relative to root of the repository
-    #externalFeedCredentials: <Name of the NuGet service connection>
-- task: DotNetCoreCLI@2
-  displayName: 'Build Wordpress MustUsePlugins'
-  inputs:
-    command: restore
-    projects: '**/MustUsePlugins/**/*.csproj'
-    feedsToUse: config
-    nugetConfigPath: NuGet.config    # Relative to root of the repository
-    #externalFeedCredentials: <Name of the NuGet service connection>
-- task: DotNetCoreCLI@2
-  displayName: 'Build Wordpress Plugins'
-  inputs:
-    command: restore
-    projects: '**/Plugins/**/*.csproj'
-    feedsToUse: config
-    nugetConfigPath: NuGet.config    # Relative to root of the repository
-    #externalFeedCredentials: <Name of the NuGet service connection>
-- task: DotNetCoreCLI@2
-  displayName: 'Build Wordpress Themes'
-  inputs:
-    command: restore
-    projects: '**/Patches/**/*.csproj'
-    feedsToUse: config
-    nugetConfigPath: NuGet.config    # Relative to root of the repository
-    #externalFeedCredentials: <Name of the NuGet service connection>
-- task: DotNetCoreCLI@2
-  displayName: 'Build Server'
-  inputs:
-    command: restore
+    command: build
     projects: '**/Server/**/*.csproj'
     feedsToUse: config
     nugetConfigPath: NuGet.config    # Relative to root of the repository
@@ -54,6 +25,7 @@ steps:
 # Publish Build Artifacts
 # Publish build artifacts to Azure Artifacts/TFS or a file share
 - task: DotNetCoreCLI@2
+  displayName: 'Publish Artifacts'
   inputs:
     command: publish
     projects: '**/Server/**/*.csproj'

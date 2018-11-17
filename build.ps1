@@ -12,39 +12,32 @@ Write-Host("Building Wordpress: $build");
 
 $basePath = Get-Location;
 
+Write-Host("Building Patches Wordpress: $build");
 Get-ChildItem "$basePath/src/Patches" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";
 }
 
-Get-ChildItem "$basePath/src/Plugins" -Directory |
-ForEach-Object {
-    Set-Location $_.FullName;
-    Invoke-Expression "dotnet build -c $build --force";
-}
-
+Write-Host("Building Wordpress Must Use Plugins: $build");
 Get-ChildItem "$basePath/src/MustUsePlugins" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";
 }
 
-Get-ChildItem "$basePath/src/Themes" -Directory |
+Write-Host("Building Wordpress Plugins: $build");
+Get-ChildItem "$basePath/src/Plugins" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";
 }
 
-if($build -eq "Debug")
-{
-    Set-Location "$basePath/src/Server";
+Write-Host("Building Wordpress Themes: $build");
+Get-ChildItem "$basePath/src/Themes" -Directory |
+ForEach-Object {
+    Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";
-}
-if($build -eq "Release")
-{
-    Set-Location "$basePath/src/Server";
-    Invoke-Expression "dotnet publish -c $build --force";
 }
 
 Set-Location $basePath;
