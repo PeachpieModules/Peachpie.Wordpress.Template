@@ -8,15 +8,16 @@ pool:
 
 variables:
   BuildConfiguration: 'Release'
+  Platform: 'AnyCPU'
 
 steps:
 - powershell: ./build.ps1 $(BuildConfiguration)
   displayName: 'Build: $(BuildConfiguration)'
 # Copy to publish folder
 - task: CopyFiles@2
-  displayName: 'Copy to Artifacts Directory: $(BuildConfiguration) | $(Platform)'
+  displayName: 'Copy to Artifacts Directory: $(BuildConfiguration)'
   inputs:
-    sourceFolder: '$(Build.Repository.LocalPath)/Build/$(BuildConfiguration)/'
+    sourceFolder: '$(Build.Repository.LocalPath)/Build/$(BuildConfiguration)/**/publish/**'
     contents: '**'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 # Publish Build Artifacts
