@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/Valks-Peachpie/peachpie-wordpress-template/_apis/build/status/Valks.peachpie-wordpress-template)](https://dev.azure.com/Valks-Peachpie/peachpie-wordpress-template/_build/latest?definitionId=1)
+
 This is a sample template for a peachpie site running Wordpress
 
 A few things of note:
