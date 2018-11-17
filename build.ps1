@@ -8,32 +8,32 @@ if($build -ne "Release" -and $build -ne "Debug")
     return;
 }
 
-Write-Host("Building Wordpress: $build");
+Write-Host("- Building Wordpress Modules: $build");
 
 $basePath = Get-Location;
 
-Write-Host("Building Patches Wordpress: $build");
+Write-Host("Building Patches.");
 Get-ChildItem "$basePath/src/Patches" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";
 }
 
-Write-Host("Building Wordpress Must Use Plugins: $build");
+Write-Host("Building Must Use Plugins.");
 Get-ChildItem "$basePath/src/MustUsePlugins" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";
 }
 
-Write-Host("Building Wordpress Plugins: $build");
+Write-Host("Building Plugins.");
 Get-ChildItem "$basePath/src/Plugins" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";
 }
 
-Write-Host("Building Wordpress Themes: $build");
+Write-Host("Building Themes.");
 Get-ChildItem "$basePath/src/Themes" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
