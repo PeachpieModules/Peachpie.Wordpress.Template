@@ -1,0 +1,1 @@
+This file exists so the CI-CD pipeline can detect this is a web project.
