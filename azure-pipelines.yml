@@ -9,6 +9,7 @@ pool:
 variables:
   BuildConfiguration: 'Release'
   Platform: 'AnyCPU'
+  NetCoreVersion: '2.1'
 
 steps:
 - powershell: ./build.ps1 $(BuildConfiguration)
@@ -17,7 +18,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy to Artifacts Directory: $(BuildConfiguration)'
   inputs:
-    sourceFolder: '$(Build.Repository.LocalPath)/Build/$(BuildConfiguration)/**/publish/**'
+    sourceFolder: '$(Build.Repository.LocalPath)/Build/$(BuildConfiguration)/$(Platform)/netcoreapp$(NetCoreVersion)/publish/**'
     contents: '**'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 # Publish Build Artifacts
