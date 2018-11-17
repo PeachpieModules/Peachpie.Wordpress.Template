@@ -8,6 +8,7 @@ if($build -ne "Release" -and $build -ne "Debug")
     return;
 }
 
+Write-Host("Building Wordpress: $build");
 
 $basePath = Get-Location;
 

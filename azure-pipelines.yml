@@ -14,8 +14,8 @@ steps:
   displayName: 'Build $(buildConfiguration)'
 # Copy to publish folder
 - task: CopyFiles@2
-  input:
-    contents: 'Build\$(Configuration)\$(Platform)\**'
+  inputs:
+    contents: 'Build\$(buildConfiguration)\$(Platform)\**'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 # Publish Build Artifacts
 # Publish build artifacts to Azure Artifacts/TFS or a file share
