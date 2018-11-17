@@ -8,6 +8,7 @@ if($build -ne "Release" -and $build -ne "Debug")
     return;
 }
 
+Write-Host("Building Wordpress: $build");
 
 $basePath = Get-Location;
 
@@ -18,6 +19,12 @@ ForEach-Object {
 }
 
 Get-ChildItem "$basePath/src/Plugins" -Directory |
+ForEach-Object {
+    Set-Location $_.FullName;
+    Invoke-Expression "dotnet build -c $build --force";
+}
+
+Get-ChildItem "$basePath/src/MustUsePlugins" -Directory |
 ForEach-Object {
     Set-Location $_.FullName;
     Invoke-Expression "dotnet build -c $build --force";

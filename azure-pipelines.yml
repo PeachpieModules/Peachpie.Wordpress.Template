@@ -1,0 +1,34 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+  BuildConfiguration: 'Release'
+  Platform: 'AnyCPU'
+  NetCoreVersion: '2.1'
+
+steps:
+- powershell: ./build.ps1 $(BuildConfiguration)
+  displayName: 'Build: $(BuildConfiguration)'
+# Copy to publish folder
+- task: CopyFiles@2
+  displayName: 'Copy to Artifacts Directory: $(BuildConfiguration)'
+  inputs:
+    sourceFolder: '$(Build.Repository.LocalPath)/Build/$(BuildConfiguration)/$(Platform)/netcoreapp$(NetCoreVersion)/publish/'
+    contents: '**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+# Publish Build Artifacts
+# Publish build artifacts to Azure Artifacts/TFS or a file share
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
+    #publishLocation: 'Container' # Options: container, filePath
+    #targetPath: # Required when publishLocation == FilePath
+    #parallel: false # Optional
+    #parallelCount: # Optional
