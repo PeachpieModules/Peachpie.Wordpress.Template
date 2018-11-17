@@ -8,27 +8,31 @@ pool:
 
 variables:
   BuildConfiguration: 'Release'
-  Platform: 'AnyCPU'
-  NetCoreVersion: '2.1'
 
 steps:
 - powershell: ./build.ps1 $(BuildConfiguration)
-  displayName: 'Build: $(BuildConfiguration)'
-# Copy to publish folder
-- task: CopyFiles@2
-  displayName: 'Copy to Artifacts Directory: $(BuildConfiguration)'
+  displayName: 'Build Wordpress Modules (Patches, Must Use Plugins, Plugins, Themes): $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Wordpress Server'
   inputs:
-    sourceFolder: '$(Build.Repository.LocalPath)/Build/$(BuildConfiguration)/$(Platform)/netcoreapp$(NetCoreVersion)/publish/'
-    contents: '**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    command: build
+    projects: '**/Server/**/*.csproj'
+    feedsToUse: config
+    nugetConfigPath: NuGet.config    # Relative to root of the repository
+    #externalFeedCredentials: <Name of the NuGet service connection>
+
+# Build Artifacts
+- task: DotNetCoreCLI@2
+  displayName: 'Build Artifacts'
+  inputs:
+    command: publish
+    projects: '**/Server/**/*.csproj'
+    publishWebProjects: False
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+
 # Publish Build Artifacts
 # Publish build artifacts to Azure Artifacts/TFS or a file share
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Build Artifacts'
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'drop'
-    #publishLocation: 'Container' # Options: container, filePath
-    #targetPath: # Required when publishLocation == FilePath
-    #parallel: false # Optional
-    #parallelCount: # Optional
+  displayName: 'Pubilsh Build Artifacts'
