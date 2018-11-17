@@ -11,15 +11,17 @@ variables:
 
 steps:
 - powershell: ./build.ps1 $(buildConfiguration)
-  displayName: 'Build $(buildConfiguration)'
+  displayName: 'Build: $(buildConfiguration)'
 # Copy to publish folder
 - task: CopyFiles@2
+  displayName: 'Copy to Artifacts Directory: $(buildConfigurtion) | $(Platform)'
   inputs:
-    contents: 'Build\$(buildConfiguration)\$(Platform)\**'
+    contents: '$(Build.SourcesDirectory)\..\..\Build\$(buildConfiguration)\$(Platform)\**'
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 # Publish Build Artifacts
 # Publish build artifacts to Azure Artifacts/TFS or a file share
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts: $(buildConfigurtion)'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'drop'
