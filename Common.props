@@ -9,7 +9,7 @@
   <PropertyGroup>
     <!-- Common Version -->
     <PeachpieVersion Condition=" '$(PeachpieVersion)' == '' ">0.9.0-*</PeachpieVersion>
-    <WordpressPackageVersion Condition=" '$(WordpressPackageVersion)' == ''">1.0.0-CI00061</WordpressPackageVersion>
+    <WordpressPackageVersion Condition=" '$(WordpressPackageVersion)' == ''">1.0.0-CI00071</WordpressPackageVersion>
     <!-- <WordpressVersion Condition=" '$(WordpressVersion)' == ''">4.9.6</WordpressVersion> -->
   </PropertyGroup>
 
