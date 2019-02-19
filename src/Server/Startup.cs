@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+
 using PeachPied.WordPress.AspNetCore;
 
 namespace Server
@@ -27,7 +28,7 @@ namespace Server
             app.UseHttpsRedirection();
             
             app.UseWordPress();
-            app.UseDefaultFiles();
+            app.UseWhen(context => !context.Request.Path.Value.EndsWith(".php"), appBuilder => appBuilder.UseDefaultFiles());
         }
     }
 }
