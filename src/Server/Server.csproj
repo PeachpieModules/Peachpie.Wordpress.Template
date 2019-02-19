@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="PeachPied.WordPress.AspNetCore" Version="$(WordpressPackageVersion)" />
+    <PackageReference Include="PeachPied.WordPress.AspNetCore" Version="1.0.0-beta1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
